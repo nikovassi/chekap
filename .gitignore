@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# generated indexes (rebuilt by `npm run index` before dev/build)
+src/generated/
+
+# test artefacts
+test-results/
+playwright-report/
+screenshots/
+
+# env & secrets – never commit credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# logs
+*.log
+npm-debug.log*
+
+# editors / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db

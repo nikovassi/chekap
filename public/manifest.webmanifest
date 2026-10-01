@@ -1,0 +1,16 @@
+{
+  "name": "Чекап – какво ти казва колата",
+  "short_name": "Чекап",
+  "description": "Лампи на таблото, шумове, пушек, OBD2 кодове и поддръжка – бърз справочник за шофьори.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a0d11",
+  "theme_color": "#0a0d11",
+  "lang": "bg",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
