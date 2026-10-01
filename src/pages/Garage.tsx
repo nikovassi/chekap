@@ -81,7 +81,14 @@ export default function GaragePage() {
 
   const reminders = useMemo(() => (v ? g.state.reminders.filter((r) => r.vehicleId === v.id) : []), [g.state.reminders, v])
 
-  if (!g.loaded) return <div className="py-24 text-center text-muted">Зареждане на гаража…</div>
+  if (!g.loaded)
+    return (
+      <div className="mx-auto max-w-4xl">
+        <Crumbs items={[{ name: 'Моят гараж' }]} />
+        <PageHeader eyebrow="Car profile · Service reminders" title="Моят гараж" intro="Пази историята на обслужването и получавай напомняния. Данните се съхраняват само в този браузър (local storage) – не се изпращат никъде." />
+        <div className="py-16 text-center text-muted">Зареждане на гаража…</div>
+      </div>
+    )
 
   return (
     <div className="mx-auto max-w-4xl">
