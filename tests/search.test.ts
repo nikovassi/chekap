@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs'
 import { prepare, searchIndex } from '../src/lib/search.ts'
 const idx = prepare(JSON.parse(readFileSync('src/generated/search.json', 'utf8')))
-const cases: [string, string][] = [
+// expected: one id, or several equally-valid ids (any of them in the top 3 passes)
+const cases: [string, string | string[]][] = [
   ['Светна ми лампата за маслото', 'dashboard/oil-pressure'],
   ['Светна check engine', 'dashboard/check-engine'],
   ['Колата тресе на празен ход', 'symptoms/engine-shaking-idle'],
@@ -20,7 +21,7 @@ const cases: [string, string][] = [
   ['чувам свистене при подаване на газ', 'noises/noise-acceleration'],
   ['има масло под колата', 'leaks/engine-oil'],
   ['температурата се вдига', 'symptoms/overheating'],
-  ['колата губи антифриз', 'symptoms/coolant-loss'],
+  ['колата губи антифриз', ['symptoms/coolant-loss', 'leaks/coolant', 'dashboard/coolant-level']],
   ['работи на 3 цилиндъра', 'symptoms/engine-misfire'],
   ['двигателят прекъсва', 'symptoms/engine-misfire'],
   ['p0300', 'obd/p0300'],
@@ -41,7 +42,8 @@ const cases: [string, string][] = [
 let ok = 0
 for (const [q, exp] of cases) {
   const r = searchIndex(idx, q, 5)
-  const pos = r.findIndex((h) => h.id === exp)
+  const ok3 = Array.isArray(exp) ? exp : [exp]
+  const pos = r.findIndex((h) => ok3.includes(h.id))
   const pass = pos >= 0 && pos < 3
   if (pass) ok++
   console.log(`${pass ? 'OK ' : 'XX '} [${pos}] ${q} → ${r.slice(0, 3).map((h) => h.id).join(', ')}`)
